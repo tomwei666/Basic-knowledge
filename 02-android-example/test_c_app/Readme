@@ -1,0 +1,8 @@
+如果Android.mk写成:
+include $(BUILD_HOST_EXECUTABLE)
+在emulator执行，会报错：no closing quote
+应该写成:
+include $(BUILD_EXECUTABLE)
+
+1. copy the source code to dir: aosp/frameworks
+2. make test_c_app
