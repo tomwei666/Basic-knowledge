@@ -1,0 +1,19 @@
+eval作用：
+1. 把function内容在Makefile中展开
+2. 执行function的语句
+3. 不执行目标下的语句
+
+tom@ubuntu:~/work/Basic-knowledge/Makefile/1$ make
+kconfig.mk:1: "check_dep_exec begin"
+kconfig.mk:2: "check_dep_py3lib begin"
+Function check_exec_python3
+说明：执行make，就是执行第一条依赖规则，也就是
+check_exec_$(1):                                                                
+	@echo "Function check_exec_$(1)"
+
+
+
+tom@ubuntu:~/work/Basic-knowledge/Makefile/1$ make check_py3lib_kconfiglib
+kconfig.mk:1: "check_dep_exec begin"
+kconfig.mk:2: "check_dep_py3lib begin"
+Function check_py3lib__kconfiglib
