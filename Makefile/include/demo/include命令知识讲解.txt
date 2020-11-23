@@ -1,0 +1,100 @@
+1. 定义：
+U1: Makefile文件中的所有规则组成的集合。
+U2: file.dep文件中的所有规则组成的集合。
+U:  集合U1和集合U2的并集。
+
+2. 工作机制：
+
+	Makefile中的include命令先将文件file.dep包含进当前Makefile文件（第一次包含），这样Makefile文件中就有了file.dep文件的内容；[断点A]。
+　　然后在集合U（特别注意，这里是集合U）中检查是否有以file.dep为目标的规则。如果U中没有以file.dep为目标的规则，或者虽然有以file.dep为目标的规则，
+但根据依赖关系（即便在规则中的命令执行后也）不能使file.dep文件发生更新，则Makefile文件最终包含的就是file.dep文件的当前内容，include命令执行结束；[断点B]
+	如果集合U中有以file.dep为目标的规则，并且该规则使得file.dep文件发生了更新，则include命令会将更新后的file.dep文件再次包含进当前Makefile文件（再次包含），跳转到断点A往下继续执行。
+
+3. 说明：
+	第一，多数情况下，U中没有规则能使file.dep文件发生更新，这就给我们这样一个假象：Makefile的include命令和C语言的include命令一样，只是简单的把file.dep文件的内容包含进当前Makefile文件，即include命令执行到断点A就执行完毕了，甚至都没有执行到断点B。
+
+　　第二，很多情况下，file.dep文件中并不包含以file.dep为目标的规则，这就给我们另外一个假象：include file.dep后，检查是否有规则对file.dep文件进行更新时，检查的范围仅仅是集合U1，而不是集合U。
+
+　　第三，由于多数情况下include命令会在第一次执行到断点B后结束，这就给我们第三个假象：include命令只会把file.dep文件包含一次，不会将其再次包含甚至多次包含。
+
+4. 例子：
+
+   源码：两个文件file.dep和Makefile
+    file.dep:
+	
+    file.dep:a.h
+	@echo "file.dep:b.h" > file.dep;
+	@echo "\t@echo \"hello world.\"" >> file.dep;
+	touch b.h
+	
+	Makefile:
+
+	$(warning Makefile 1)
+	all:test
+
+	include file.dep
+	test:c.h
+		@echo "this is c.h";
+	$(warning Makefile 7)
+
+
+
+   tom@ubuntu:~/work/Basic-knowledge/Makefile/include/1$ touch a.h 
+   tom@ubuntu:~/work/Basic-knowledge/Makefile/include/1$ make test
+   Makefile:1: Makefile 1
+   Makefile:7: Makefile 7
+   touch b.h
+   Makefile:1: Makefile 1
+   Makefile:7: Makefile 7
+   hello world.
+   this is c.h
+
+	分析：
+	
+	
+	1)	首先，include命令将file.dep文件包含进Makefile文件，然后在集合U中查看是否有规则能使file.dep文件发生更新，而集合U2（U2包含于U）中正好有一条能使file.dep发生更新的规则，
+
+	file.dep:a.h
+		@echo "file.dep:b.h" > file.dep;
+		@echo "    @echo \"hello world.\"" >> file.dep;
+		touch b.h;
+
+	接着这条规则中的三条命令被执行。这样，file.dep文件的内容被重写，b.h文件被更新，输出“touch b.h”。
+	
+	2) 因为file.dep文件被更新后，则会重新从Makefile中开始处执行Makefile，再次把file.dep重新包含进Makefile文件，此时Makefile文件包含了file.dep文件的内容：
+	   file.dep:b.h
+			@echo "hello world."
+	   这也是一个以file.dep为目标的规则，且该规则在集合U中；此时，file.dep没有b.h新，根据依赖关系此规则里的命令会被执行，于是有了输出”hello world.”
+	   
+	3）执行完file.dep:b.h后，没有更新file.dep:b.h的规则，所以不会再从Makefile开始执行，重新包含file.dep。
+	
+	4）然后执行，执行test的目标语句，输出"this is c.h"
+
+5. 参考
+https://www.cnblogs.com/cuckoos/articles/5049984.html
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+参考
+https://www.cnblogs.com/cuckoos/articles/5049984.html
