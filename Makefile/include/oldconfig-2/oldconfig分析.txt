@@ -1,0 +1,146 @@
+
+
+	1. 源码分析：
+	tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-2$ cat kconfig.mk
+	$(warning tom kconfig.mk begin)
+	$(eval $(call check_dep_exec,python3,KCONFIG_DEPS))
+	$(eval $(call check_dep_py3lib,kconfiglib,KCONFIG_DEPS))
+	T := $(CURDIR)
+	HV_CONFIG := .config                                                                                                                                                                                                                    
+	HV_DEFCONFIG := defconfig                                                       
+	HV_CONFIG_H := config.h                                                 
+	HV_CONFIG_MK := config.mk                                               
+
+	-include $(CURDIR)/$(HV_CONFIG_MK)
+	$(CURDIR)/$(HV_CONFIG): oldconfig                                            
+	@echo "tom 2=$(HV_OBJDIR) $(HV_CONFIG)"                                     
+	@true                                                                       
+                                                                                
+	# Note: This target must not depend on a phony target (e.g. oldconfig) because  
+	# it'll trigger endless re-execution of make.                                   
+	$(CURDIR)/$(HV_CONFIG_MK): $(CURDIR)/$(HV_CONFIG)                         
+		@echo "tom 3=$@ 3-1=$(HV_OBJDIR) $(HV_CONFIG)"                              
+		@mkdir -p $(dir $@)                                                         
+		@sed 's/="\(.*\)"$$/=\1/g' $(CURDIR)/$(HV_CONFIG) > $@
+
+	oldconfig: $(KCONFIG_DEPS)                                                      
+		@echo "tom 1= $(HV_CONFIG)"                                     
+		@echo "tom 1=$(CURDIR)"                                                     
+		@touch $(CURDIR)/$(HV_CONFIG)
+
+	$(warning tom kconfig.mk 19)
+	$(warning tom kconfig.mk end)
+
+	
+	tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-2$ cat Makefile 
+	$(warning "tom Makefile begin")
+	include deps.mk
+	include kconfig.mk
+	.PHONY: clean
+	clean:
+		rm -f aa
+		rm -f bb
+	aa :
+		@echo "aa tag"
+	$(warning "tom Makefile end")
+	
+	2. 执行效果：
+	tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-2$ make aa
+	Makefile:1: "tom Makefile begin"
+	kconfig.mk:1: tom kconfig.mk begin
+	kconfig.mk:2: "check_dep_exec begin"
+	kconfig.mk:3: "check_dep_py3lib begin"
+	kconfig.mk:27: tom kconfig.mk 19
+	kconfig.mk:28: tom kconfig.mk end
+	Makefile:10: "tom Makefile end"
+	Function check_exec_python3
+	Function check_py3lib__kconfiglib
+	tom 1= .config                                                                                                                                                                                                                    
+	tom 1=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2
+	tom 2= .config                                                                                                                                                                                                                    
+	tom 3=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2/config.mk 3-1= .config                                                                                                                                                                                                                    
+	Makefile:1: "tom Makefile begin"
+	kconfig.mk:1: tom kconfig.mk begin
+	kconfig.mk:2: "check_dep_exec begin"
+	kconfig.mk:3: "check_dep_py3lib begin"
+	kconfig.mk:27: tom kconfig.mk 19
+	kconfig.mk:28: tom kconfig.mk end
+	Makefile:10: "tom Makefile end"
+	Function check_exec_python3
+	Function check_py3lib__kconfiglib
+	tom 1= .config                                                                                                                                                                                                                    
+	tom 1=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2
+	tom 2= .config                                                                                                                                                                                                                    
+	tom 3=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2/config.mk 3-1= .config   
+	
+	3. 说明：
+	因为include HV_CONFIG_MK文件,包含进Makefile中，全集U中，包含有更新HV_CONFIG_MK，这样会依次执行tom 1,tom 2,tom 3，
+	然后生成了文件HV_CONFIG_MK；执行完了，然后重新包含下include HV_CONFIG_MK文件。
+	判断：$(CURDIR)/$(HV_CONFIG_MK): $(CURDIR)/$(HV_CONFIG)这个规则中$(CURDIR)/$(HV_CONFIG_MK)的更新依赖于$(CURDIR)/$(HV_CONFIG);
+	这个$(CURDIR)/$(HV_CONFIG)依赖oldconfig，oldconfig依赖KCONFIG_DEPS，是个字符串，有更新的条件，则进入执行@touch $(CURDIR)/$(HV_CONFIG),
+	则又重新生成.config，导致HV_CONFIG_MK依赖的HV_CONFIG会更新，重复执行。
+	
+	如果想执行两次,kconfig这样写：
+ 22 oldconfig: $(KCONFIG_DEPS)                                                      
+ 23     @echo "tom 1= $(HV_CONFIG)"                                                                                                                                                                                                     
+ 24     @echo "tom 1=$(CURDIR)"                                                     
+ 25     #@touch $(CURDIR)/$(HV_CONFIG) 
+	
+	tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-2$ echo "CONFIG_SDC=y" > .config
+tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-2$ make aa
+Makefile:1: "tom Makefile begin"
+kconfig.mk:1: tom kconfig.mk begin
+kconfig.mk:2: "check_dep_exec begin"
+kconfig.mk:3: "check_dep_py3lib begin"
+kconfig.mk:28: tom kconfig.mk 19
+kconfig.mk:29: tom kconfig.mk end
+Makefile:10: "tom Makefile end"
+tom 1= .config                                                                                                                                                                                                                    
+tom 1=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2
+#@touch /home/tom/work/Basic-knowledge/Makefile/oldconfig-2/.config                                                                                                                                                                                                                    
+tom 2= .config                                                                                                                                                                                                                    
+tom 3=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2/config.mk 3-1= .config                                                                                                                                                                                                                    
+Makefile:1: "tom Makefile begin"
+kconfig.mk:1: tom kconfig.mk begin
+kconfig.mk:2: "check_dep_exec begin"
+kconfig.mk:3: "check_dep_py3lib begin"
+kconfig.mk:28: tom kconfig.mk 19
+kconfig.mk:29: tom kconfig.mk end
+Makefile:10: "tom Makefile end"
+tom 1= .config                                                                                                                                                                                                                    
+tom 1=/home/tom/work/Basic-knowledge/Makefile/oldconfig-2
+#@touch /home/tom/work/Basic-knowledge/Makefile/oldconfig-2/.config                                                                                                                                                                                                                    
+tom 2= .config                                                                                                                                                                                                                    
+aa tag
+
+	说明当第二次运行到3时候，.config的时间没config.mk时间新，则不会第2次执行，tom 3=语句。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
