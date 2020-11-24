@@ -1,0 +1,44 @@
+1. 功能：  主要介绍下，怎么使用inlcude，触发生成.config。
+
+
+2. 执行结果:
+
+tom@ubuntu:~/work/Basic-knowledge/Makefile/oldconfig-1$ make clean
+Makefile:1: "tom Makefile begin"
+kconfig.mk:1: tom kconfig.mk begin
+kconfig.mk:2: "check_dep_exec begin"
+kconfig.mk:3: "check_dep_py3lib begin"
+kconfig.mk:19: tom kconfig.mk 19
+kconfig.mk:21: tom kconfig.mk end
+Makefile:12: "tom Makefile end"
+tom generate .config
+tom generate config.mk
+rm -f aa
+rm -f bb
+
+3. 源码分析
+$(warning tom kconfig.mk begin)
+$(eval $(call check_dep_exec,python3,KCONFIG_DEPS))
+$(eval $(call check_dep_py3lib,kconfiglib,KCONFIG_DEPS))
+T := $(CURDIR)
+HV_CONFIG := .config                                                                                                                                                                                                                    
+HV_DEFCONFIG := defconfig                                                       
+HV_CONFIG_H := config.h                                                 
+HV_CONFIG_MK := config.mk                                               
+                                                                                
+# This target invoke silentoldconfig to generate a .config only if a .config       
+# does not exist. Useful as a dependency for source compilation.                
+$(CURDIR)/$(HV_CONFIG):                                                      
+	@echo "tom generate .config"                                                               
+	@touch .config
+                                                                                
+$(CURDIR)/$(HV_CONFIG_MK): $(CURDIR)/$(HV_CONFIG)                         
+	@echo "tom generate config.mk"                                                               
+
+-include $(CURDIR)/$(HV_CONFIG_MK)
+$(warning tom kconfig.mk end)
+
+主要是-include $(CURDIR)/$(HV_CONFIG_MK),执行时候没有$(CURDIR)/$(HV_CONFIG_MK)；在继续执行完makefile后；
+会在Makefile是否有$(CURDIR)/$(HV_CONFIG_MK)生成规则；显然(CURDIR)/$(HV_CONFIG_MK)是由$(CURDIR)/$(HV_CONFIG)生成的。
+则先会执行规则$(CURDIR)/$(HV_CONFIG)：，也就是先打印"tom generate .config"，生成$(CURDIR)/$(HV_CONFIG),然后再执行
+$(CURDIR)/$(HV_CONFIG_MK): $(CURDIR)/$(HV_CONFIG),打印@echo "tom generate config.mk" ，生成$(CURDIR)/$(HV_CONFIG_MK)。
