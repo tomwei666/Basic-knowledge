@@ -1,0 +1,52 @@
+前言:
+log2(M)-log2(N)=log2(M/N)
+假设：log2(M) - log2(N) = shift,则 log2(M/N) = shift
+结果: 
+M/N =2^shift, 则 :M= N*2^shift.
+2^3=8 2^2+2^1+2^0=4+2+1=7
+2^shift>2^(shif-1)+2^(shift-2)+...+2^0
+则:
+M= N*(2^(shift-1) + 2^(shift - 2) + 2^0) + ( M-N*(2^(shift-1) + 2^(shift - 2)) )
+假设: M=31 N=4，则: 31 = 4*( 2^2 + 2^1 + 2^0) + (31-16-8-4)
+
+需求:
+把M中，是N的基数，更新到K中。
+例如:
+
+log2(M)-log2(N)=shift==>M/N=2^shift
+
+M=31 N=4, 31= 4*2^0+4*2^1+4*2^2+3=4+8+16+3=31,显然 k=4+8+16=28
+M=32 N=4, 32= 4*2^3,显然 k=32
+
+伪代码如下:
+1. 一个函数保存每次余数: 31-4*2^2
+offset_cal(N,offset,shift)
+{
+	interval = N << shift;
+	
+	offset = offset - interval;
+
+	offset < interval
+		return offset;
+	k=
+	return offset
+
+	操作interval的一些事情
+
+}
+
+2. 一个函数负责递减
+
+shift = ilog2(M) - ilog2(N)
+while (offset >= tk->cycle_interval) { //当小于N时候就是推出循环
+	offset_cal(N,offset,shift);
+	if (offset < N<<shift)  //offset必须小于shift对应的指数,如果不符合，则减少shift.
+			shift--;                                                            
+}
+
+编译:
+gcc -o test test.c -lm
+
+
+
+
