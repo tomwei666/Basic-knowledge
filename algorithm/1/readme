@@ -61,5 +61,6 @@ while (offset >= tk->cycle_interval) { //当小于N时候就是推出循环
 gcc -o test test.c -lm
 
 
-
+timekeep.c
+增加了当时钟周期来了，怎么更新raw时间的.
 
