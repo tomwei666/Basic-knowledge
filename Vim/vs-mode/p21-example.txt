@@ -1,0 +1,5 @@
+操作流程:
+1. fh选中here中的h
+2. vbb选中了"here to h"
+3. "o"切换其活动的断点,这样就选中了"here to here"
+Select from here to here.
