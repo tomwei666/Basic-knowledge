@@ -4,3 +4,6 @@
 3）shell
 4) 汇编
 5) Android
+6) tools
+   address_index:提取Address的pgd,pud,pmd和pte的index!
+    
