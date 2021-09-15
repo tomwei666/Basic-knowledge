@@ -14,7 +14,12 @@ struct list_head {
 		    (ptr)->next = (ptr); (ptr)->prev = (ptr); \
 } while (0)
 
-
+/*功能：就是把new节点插入到prev和next之间,插入后则变成:prev->new->next*/
+/*比如prev是head节点，next是head指向的第一个节点.则需要做如下操作
+ *1) 把new的prev指向head节点,new的next指向next.
+ *2) 把根节点的next指向new
+ *3) 把next的prev指向new
+ */
 static __inline__ void __list_add(struct list_head * new,
 					struct list_head * prev, struct list_head * next)
 {
@@ -24,11 +29,17 @@ static __inline__ void __list_add(struct list_head * new,
 		    prev->next = new;
 }
 
+/*功能：把new节点，插入到head之后.
+* head->next:head指向的第一个数据节点.
+ */
 static __inline__ void list_add(struct list_head *new, struct list_head *head)
 {
 		    __list_add(new, head, head->next);
 }
 
+/*功能：把new节点，插入到head链表中最后一个节点后。
+* head->prev:head指向的最后一个数据节点.
+ */
 static __inline__ void list_add_tail(struct list_head *new, struct list_head *head)
 {
 		    __list_add(new, head->prev, head);
