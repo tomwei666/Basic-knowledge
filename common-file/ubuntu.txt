@@ -1,0 +1,5 @@
+1. 把capslock映射为ctrl，ctrl不映射为caps
+setxkbmap -option "ctrl:nocaps"
+2. 把capslock和ctrl互换功能
+setxkbmap -option "ctrl:swapcaps"
+
