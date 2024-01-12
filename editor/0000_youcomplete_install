@@ -1,0 +1,22 @@
+1. 更新glibc
+https://blog.csdn.net/xihuanyuye/article/details/126865893
+cd glibc-2.29
+mkdir build
+cd build
+../configure --prefix=/usr/local/glibc
+
+ll /usr/local/glibc/lib/libm-2.29.so
+cd /lib/x86_64-linux-gnu
+ln -s /usr/local/glibc/lib/libm-2.29.so libm.so.6
+
+
+2. 更新libstdc++6
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+sudo apt install libstdc++6
+
+3.
+
+
+
+
