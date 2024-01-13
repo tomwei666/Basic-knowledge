@@ -1,0 +1,61 @@
+1. 使用光盘作为包的安装源
+sudo mount -o loop ubuntu-18.04.6-desktop-amd64.iso /media/cdimage/
+///etc/apt/sources.list
+deb file:/media/cdimage/ bionic main restricted
+sudo apt-get update
+sudo apt-get install build_essential
+sudo apt-get install make
+
+2. 安装网卡驱动
+2.1 解压安装包: r8125-9.012.03.tar.bz2
+2.2 安装驱动: 进入解压包然后安装: sudo autorun.sh
+
+3. 设置时间/时区
+3.1) tzselect
+       --> 4) Asia
+	   -->10)china
+	   -->11) beijing
+3.2) ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+4. 搭建samba服务:
+4.1 安装samba服务: 
+	sudo apt install samba samba-common
+4.2 配置samba服务：
+//配置文件: /etc/samba/smb.conf
+[work1_share]
+    valid users = tom
+    path = /work1
+    public = yes
+    writable = yes
+    create mask = 0644
+    force create mode = 0644
+    directory mask = 0755
+    force directory mode = 0755
+    available = yes
+[home_share]
+    valid users = tom
+    path = /home/tom/
+    public = yes
+    writable = yes
+    create mask = 0644
+    force create mode = 0644
+    directory mask = 0755
+    force directory mode = 0755
+    available = yes
+4.3 设置samba密码：
+   截图:
+   tom@tom-linuxer:/work1/ubuntu-12900k$  sudo smbpasswd -a tom
+   New SMB password:
+   Retype new SMB password:
+   Added user tom.
+4.4 重启samba服务:
+	sudo service smbd restart
+
+5. 安装高版本的cmake
+./configure
+make
+make install
+
+6. 切换gcc版本
+
+sudo update-alternatives --config
