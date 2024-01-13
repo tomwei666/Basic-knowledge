@@ -1,0 +1,5 @@
+1. 下载youcompleteme
+https://github.com/ycm-core/YouCompleteMe.git
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+2. 安装
