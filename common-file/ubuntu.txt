@@ -3,3 +3,13 @@ setxkbmap -option "ctrl:nocaps"
 2. 把capslock和ctrl互换功能
 setxkbmap -option "ctrl:swapcaps"
 
+nvdia驱动安装
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+ubuntu-drivers devices
+sudo apt install nvidia-driver-470
+
+卸载:
+sudo apt-get autoremove --purge nvidia-driver-470
+
+

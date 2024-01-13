@@ -1,0 +1,17 @@
+
+1. 示意图
+
+		Linear Address (VA or IPA)
+48                39(38)             (30)39                    21(20)           (12)11                    0
+|	   9            |       9           |          9             |        9        |        12            |
+| Global DIR(L0)    |   Upper DIR(L1)   |  Middle Dir bits(L2)   |   Table PTE(L3) |       offset bits    |
+                                                                                    <---page shift   -----> 
+										                          <-------pmd_shift----------------------->
+					<--------------------------pgd_shif--------------------------------------------------->
+2. 变量
+  1) 上面示意图是ARM64默认的4级，一共采用 48bit的，L0=9,L1=9,L2=9,L3=9.
+  
+  2) **_SHIFT
+      PAGE_SHIFT=12
+  3) VA_BITS = 48
+
