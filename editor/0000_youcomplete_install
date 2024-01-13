@@ -1,40 +1,113 @@
 
+因为是ubuntu，需要升级下面的软件
 1. 更新python
+  通过pyenv升级python
+  在.bashrc添加
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  安装3.8.0
+  pyenv install 3.8.0
+  切换3.8.0
+  pyenv global 3.8.0
+  Note: 如果不想使用pyenv管理python，则把bashrc中的语句去掉，就可以了。
 
-1.1 pyenv
+2. 升级cmake
+./configure
+make 
+sudo make install
+sudo update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 0
 
-在.bashrc添加
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+3. 升级g++
+sudo apt-get install g++-8
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 0
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 1
+sudo update-alternatives --config g++
 
-安装3.8.0
-pyenv install 3.8.0
-切换3.8.0
-pyenv global 3.8.0
-
-如果不想使用pyenv管理python，则把bashrc中的语句去掉，就可以了。
-
-
-1. 更新glibc
+3. 更新glibc
 https://blog.csdn.net/xihuanyuye/article/details/126865893
 cd glibc-2.29
 mkdir build
 cd build
 ../configure --prefix=/usr/local/glibc
+make -j8
+sudo make install
 
 ll /usr/local/glibc/lib/libm-2.29.so
 cd /lib/x86_64-linux-gnu
-ln -s /usr/local/glibc/lib/libm-2.29.so libm.so.6
+sudo ln -sf /usr/local/glibc/lib/libm-2.29.so libm.so.6
 
 
-2. 更新libstdc++6
+4. 更新libstdc++6
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
 sudo apt install libstdc++6
 
-3. 更新cmake
+5. 安装命令 
 
+安装选项:
+# 仅安装支持Python的版本
+./install.py
+# 安装支持C语言家族的版本：
+./install.py --clang-completer
+# 安装支持go语言的版本：
+./install.py --go-completer
+# 安装支持Js、Java、Python、go所有语言的版本：
+./install.py --all
 
+安装命令:
+/home/tom/.pyenv/versions/3.8.10/bin/python3 /home/tom/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py --clangd-completer --verbose
+安装log:
+Downloading Clangd from https://github.com/ycm-core/llvm/releases/download/17.0.1/clangd-17.0.1-x86_64-unknown-linux-gnu.tar.bz2...
+Extracting Clangd to /home/tom/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/clangd/output...
+Done installing Clangd
+Clangd completer enabled. If you are using .ycm_extra_conf.py files, make sure they use Settings() instead of the old and deprecated FlagsForFile().
 
+要不然会报下面错误，不支持 GoToReferences:
+Note:
+ValueError: Supported commands are:
+ClearCompilationFlagCache
+FixIt
+GetDoc
+GetDocImprecise
+GetParent
+GetType
+GetTypeImprecise
+GoTo
+GoToDeclaration
+GoToDefinition
+GoToImprecise
+GoToInclude
+See the docs for information on what they do.
+Press ENTER or type command to continue
 
+6. 可以使用YcmDebugInfo命令
+
+Printing YouCompleteMe debug information...
+-- Resolve completions: Never
+-- Client logfile: /tmp/ycm_fdd7x871.log
+-- Server Python interpreter: /home/tom/.pyenv/versions/3.8.10/bin/python3
+-- Server Python version: 3.8.10
+-- Server has Clang support compiled in: False
+-- Clang version: None
+-- No extra configuration file found
+-- C-family completer debug information:
+--   Clangd running
+--   Clangd process ID: 7223
+--   Clangd executable: ['/home/tom/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd', '-header-insertion-decorators=0', '-resource-dir=/home/tom/.vim/bundle/YouCompleteMe/t
+hird_party/ycmd/third_party/clang/lib/clang/17.0.1', '-limit-results=500']
+--   Clangd logfiles:
+--     /tmp/clangd_stderrz8d5elw7.log
+--   Clangd Server State: Initialized
+--   Clangd Project Directory: /home/tom/work/PTG-4.5/buildsystem/yocto/meta-semidrive/recipes-core/sdcast/sdcast
+--   Clangd Settings: {}
+--   Clangd Compilation Command: False
+-- Server running at: http://127.0.0.1:44967
+-- Server process ID: 7206
+-- Server logfiles:
+--   /tmp/ycmd_44967_stdout_sxf6wj6y.log
+--   /tmp/ycmd_44967_stderr_vql1wa9p.log
+-- Semantic highlighting supported: True
+-- Virtual text supported: True
+-- Popup windows supported: True
+Press ENTER or type command to continue
