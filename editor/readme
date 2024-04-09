@@ -1,6 +1,9 @@
 1. 概要
-   这个目录下，主要介绍vim和vim插件(例如youcompleteme插件.)
-2. 文档大概内容:
-	000_basic_language:主要介绍下ide应该有的操作.
-
- 
+	在editor这个目录，主要介绍vim和youcompleteme插件.
+2. layout
+	dl: 存放着源码压缩包.
+	Document:
+		0000_ide_basic_knowledge:主要介绍ide一些基础知识.
+		0001_youcompleteme_install:主要介绍youcompletme的安装.
+		0002_youcompleteme_use:主要介绍youcompleteme的使用.
+	Vim:记载着vim学习的常用操作。
