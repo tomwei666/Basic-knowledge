@@ -6,4 +6,5 @@
 		0000_ide_basic_knowledge:主要介绍ide一些基础知识.
 		0001_youcompleteme_install:主要介绍youcompletme的安装.
 		0002_youcompleteme_use:主要介绍youcompleteme的使用.
+		0003_generate_compile_commands:主要下使用bear产生compile_commands.json使用.
 	Vim:记载着vim学习的常用操作。
