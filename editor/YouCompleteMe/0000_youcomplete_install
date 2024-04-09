@@ -1,4 +1,3 @@
-
 因为是ubuntu，需要升级下面的软件
 1. 更新python
   通过pyenv升级python
