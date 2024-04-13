@@ -110,3 +110,47 @@ hird_party/ycmd/third_party/clang/lib/clang/17.0.1', '-limit-results=500']
 -- Virtual text supported: True
 -- Popup windows supported: True
 Press ENTER or type command to continue
+
+
+7. 包安装:
+链接: https://dominoc925.blogspot.com/2019/09/installing-vim-youcompleteme-for-ubuntu.html
+
+sudo apt install vim-youcompleteme
+vim-addon-manager install youcompleteme
+
+卸载:
+sudo apt remove vim-youcompleteme
+
+8.  如果查看命令：
+查看
+
+YcmCompleter help
+ExecuteCommand
+FixIt
+Format
+GetDoc
+GetDocImprecise
+GetType
+GetTypeImprecise
+GoTo
+GoToAlternateFile
+GoToCallees
+GoToCallers
+GoToDeclaration
+GoToDefinition
+GoToDocumentOutline
+GoToImplementation
+GoToImprecise
+GoToInclude
+GoToReferences
+GoToSymbol
+GoToType
+RefactorRename
+RestartServer
+
+:YcmCompleter GoToDefinitio
+:YcmCompleter GoToDocumentOutline
+:YcmCompleter GoToSymbol
+
+
+

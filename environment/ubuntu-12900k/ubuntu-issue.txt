@@ -1,0 +1,4 @@
+1. terminal打不开问题:
+ 现象：到文件目录下是可以打开的。
+原因：是python脚本导致的.https://blog.csdn.net/qq_39984517/article/details/136278587
+

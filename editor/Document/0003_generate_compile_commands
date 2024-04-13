@@ -12,5 +12,6 @@
 need to change "cc"==>cross_compile_gcc
 
 2.3 使用vim修改的命令如下:
+%s/\"cc\"/\"\/work1\/X9\/PTG-4.3\/buildsystem\/android10\/prebuilts\/gcc\/linux-x86\/aarch64\/aarch64-linux-android-4.9\/bin\/aarch64-linux-androidkernel-gcc\"/gc
 %s/\"cc\"/\"\/work1\/PTG-4.3\/buildsystem\/android10\/prebuilts\/gcc\/linux-x86\/aarch64\/aarch64-linux-android-4.9\/bin\/aarch64-linux-androidkernel-gcc\"/gc
 
