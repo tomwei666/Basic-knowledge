@@ -1,0 +1,32 @@
+1. 概述
+	在使用状态栏美化插件vim-airline,状态栏的箭头需要使用powerline字体。
+	本文介绍在ubuntu1804安装powerline的安装.
+
+2. 安装
+2.1 install powerline-status
+	command: pip3 install --user powerline-status
+	Note:使用--user选项，libraries和binary会被安装在~/.local目录下.
+
+2.2 install fonts
+	git clone https://github.com/powerline/fonts
+	./install
+	Note:install会把fonts安装在目录 ~/.local/share/fonts
+
+2.3 install python3-powerline
+	sudo apt install python3-powerline
+
+2.4 bash powerline
+  在.bashrc添加如下信息: 
+  if [ -f /home/tom/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh ]; then
+  	powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+	source /home/tom/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh
+  fi
+
+2.5  vim配置
+   如提交的vimrc所示.
+
+
+3. 参考
+https://linuxconfig.org/introduction-to-powerline-the-statusline-plugin-for-vim
