@@ -27,6 +27,23 @@
 2.5  vim配置
    如提交的vimrc所示.
 
+3. 补充:
+3.1. 安装powerline
+	sudo apt-get install powerline
+3.2. 安装字体:
+	wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
+	mv PowerlineSymbols.otf ~/.local/share/fonts/
+	sudo fc-cache -f -v
+	wget https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
+	mkdir -p ~/.config/fontconfig/fonts.conf
+	mv 10-powerline-symbols.conf ~/.config/fontconfig/fonts.conf/
+这个电脑的bashrc配置:
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
 
-3. 参考
+4. 参考
 https://linuxconfig.org/introduction-to-powerline-the-statusline-plugin-for-vim

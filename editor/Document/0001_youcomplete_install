@@ -1,4 +1,5 @@
 因为是ubuntu，需要升级下面的软件
+
 1. 更新python
   通过pyenv升级python
   在.bashrc添加
@@ -46,12 +47,12 @@ cd /lib/x86_64-linux-gnu
 sudo ln -sf /usr/local/glibc/lib/libm-2.29.so libm.so.6
 
 
-4. 更新libstdc++6
+6. 更新libstdc++6
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
 sudo apt install libstdc++6
 
-5. 安装命令 
+7. 安装命令 
 
 安装选项:
 # 仅安装支持Python的版本
@@ -62,6 +63,13 @@ sudo apt install libstdc++6
 ./install.py --go-completer
 # 安装支持Js、Java、Python、go所有语言的版本：
 ./install.py --all
+
+Note:
+1) 安装支持c语言家族版本有两种:--clangd-completer和--clang-completer 
+2) 建议安装--clangd-complete，clangd支持GoToSymbol和GoToDocumentOutline,--clang-completer不支持这两个功能.
+
+
+6.
 
 安装命令:
 /home/tom/.pyenv/versions/3.8.10/bin/python3 /home/tom/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py --clangd-completer --verbose
