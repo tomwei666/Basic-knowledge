@@ -2,7 +2,10 @@
    如果提供的选项过于宽泛，请继续输入字符；YCM将根据您的输入持续优化提供的选项。
 
 2. 在linux内核产生compile_command.json 
+2.1 把clang-12作为全局变量
+export PATH="${PATH}:/work1/PTG-4.6/buildsystem/android12/prebuilts/clang/host/linux-x86/clang-r416183b/bin"
 
+2.2 
 make CC=clang-12 ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- defconfig O=../main_out -j24
 bear make CC=clang-12 ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-  Image O=../main_out -j24
 在源码文件添加.clangd文件:
