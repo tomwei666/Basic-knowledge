@@ -1,0 +1,14 @@
+1. TIP13 Make Corrections Instantly from Insert Mode
+
+<C-H>: delete back one char
+<C-W>: delete back one word
+<C-U>: delete back to start of line
+
+2. TIP14 Get Back to Normal Mode
+<ESC> / <C-[> : Switch to Normal mode
+<C-O> : Switch to Insert Normal mode
+在insert mode下，如果所在line在屏幕底,把line移动到中间，并进入insert mode，可以使用下面命令:
+<C-o>zz
+
+3.
+
