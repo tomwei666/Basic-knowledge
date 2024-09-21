@@ -1,0 +1,21 @@
+
+
+Tip12: Combine and Conquer(双剑合璧，天下无敌)
+
+Operator + Motion = Action
+
+Trigger          Effect
+c                Change.
+d                Delete.
+y                Yank into register.
+g~               Swap case
+gu               Make lowercase
+gU               Make uppercase
+>                shift right
+<                shift left
+=                自动缩进
+!                Filter {motion} lines through an external program
+
+举例：
+dap : 删除整个段落
+guaw : 整个单词小写

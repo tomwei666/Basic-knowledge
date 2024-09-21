@@ -1,0 +1,27 @@
+
+
+Tip12: Combine and Conquer(双剑合璧，天下无敌)
+
+Operator + Motion = Action
+
+Trigger          Effect
+
+Change
+c
+Delete
+d
+Yank into register
+y
+Swap case
+g~
+Make lowercase
+gu
+Make uppercase
+gU
+Shift right
+>
+Shift left
+<
+Autoindent
+=
+Filter {motion} lines through an external program
