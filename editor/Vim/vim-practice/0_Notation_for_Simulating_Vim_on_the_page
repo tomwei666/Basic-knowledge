@@ -1,0 +1,16 @@
+1. Playing Melodies(演奏主旋律)
+
+标记      含义
+x         按一次x
+dw        依次按d、w
+dap       依次按 d、a、p
+
+2.  Playing Chords(演奏和弦)
+
+
+标记         含义
+<C-n>        同时按 <Ctrl> 和 n    
+g<C-]>       按 g，然后同时按 <Ctrl> 和 ]
+<C-r>0       同时按 <Ctrl> 和 r，然后按 0
+<C-w><C-=>   同时按 <Ctrl> 和 w，然后同时按 <Ctrl> 和 = 
+
