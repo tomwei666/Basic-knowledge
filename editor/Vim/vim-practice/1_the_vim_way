@@ -1,0 +1,38 @@
+Tip1 Meet the Dot Command
+
+The dot command lets us repeat the last change. 上次修改可以指很多东西，
+一次修改的单位可以是字符、整行、甚至是整个文件.
+Origin:
+
+Line one
+Line two
+Line three
+Line four
+
+
+Line one
+Line two
+Line three
+Line four
+
+'>G' :
+'j'. :
+
+
+
+Tip2 Don’t Repeat Yourself
+
+origin:
+var foo = 1
+var bar = 'a'
+var foobar = foo + bar
+
+在语句后面添加";",操作如下:
+1) 'A;'
+2) 'j.'
+3) 'j.'
+
+output:
+var foo = 1;
+var bar = 'a';
+var foobar = foo + bar;
