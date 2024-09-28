@@ -32,7 +32,43 @@ var foobar = foo + bar
 2) 'j.'
 3) 'j.'
 
-output:
+
 var foo = 1;
 var bar = 'a';
 var foobar = foo + bar;
+
+Compound Command            Equivalent  in   Longhand
+C                           c$  : 替换光标删除到行尾
+s                           cl  : 替换一个字符
+S                           ^C  : 把光标移动到行开始处，然后替换到行结束
+I                           ^i  : 把光标移动到开始处，并进入插入模式
+A                           $i  : 把光标移动到行末尾，并进入插入模式
+o                           A<CR> : 移动到下一行，并进入插入模式
+O                           ko    : 移动到上一行，并进入插入模式.
+
+Note:  S=^C=^c$ : 把光标移到行开始，替换到行末尾.
+
+TIP3 Take One Step Back, Then Three Forward
+
+origin:
+var foo = "method("+argument1+","+argument2+")";
+
+
+output:
+var foo = "method(" + argument1 + "," + argument2 + ")";
+
+操作如下:
+1) 'f+'
+2) 's + '
+3) ';.'
+
+TIP4 Act, Repeat, Reverse
+目的                                     操作                       重复                回退
+做出一个修改                             {edit}                      .                   u
+在行内查找下一个指定字符                 f{char}/t{char}             ;                   , 
+在行内查找上一个指定字符                 F{char}/T{char}             ;                   , 
+在文档中查找下一处匹配项                 /pattern<CR>                n                   N
+在文档中查找下一处匹配项                 ?pattern<CR>                n                   N
+执行替换                                  :s/target/replacement      &                   u
+执行一系列修改                            qx{changes}q               @x                  u
+
