@@ -72,3 +72,11 @@ TIP4 Act, Repeat, Reverse
 执行替换                                  :s/target/replacement      &                   u
 执行一系列修改                            qx{changes}q               @x                  u
 
+TIP5 Find and Replace by Hand
+可以通过命令行完成替换命令.
+:%s/content/copy/g
+
+
+Tip 6 Meet the Dot Formula
+
+

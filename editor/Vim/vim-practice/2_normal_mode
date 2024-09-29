@@ -1,4 +1,14 @@
 
+Tip9: Compose Repeatable Changes 
+'daw': 删除整个单词.
+'b'  : 移动光标到单词开始处.
+
+This is a book
+
+
+
+
+
 Tip11: Don’t Count If You Can Repeat(能够重复，就不用次数)
 原理: dw这些命令，可以通过数字控制删除范围，比如d3w，删除3个单词.
     可以使用dw，然后使用'.',进行重复。这样会有以下好处:
@@ -26,4 +36,5 @@ gU               Make uppercase
 举例：
 dap : 删除整个段落
 guaw : 整个单词小写
+
 
