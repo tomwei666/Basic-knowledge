@@ -5,9 +5,7 @@
   在.bashrc添加
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  安装3.8.0
-  pyenv install 3.8.0
+  eval "$(pyenv init -)" 安装3.8.0 pyenv install 3.8.0
   切换3.8.0
   pyenv global 3.8.0
   Note: 如果不想使用pyenv管理python，则把bashrc中的语句去掉，就可以了。
@@ -67,9 +65,11 @@ sudo apt install libstdc++6
 Note:
 1) 安装支持c语言家族版本有两种:--clangd-completer和--clang-completer 
 2) 建议安装--clangd-complete，clangd支持GoToSymbol和GoToDocumentOutline,--clang-completer不支持这两个功能.
+3) 安装过程中，可以通过选项--verbose输出更多信息.
+
+8. 一体化安装
 
 
-6.
 
 安装命令:
 /home/tom/.pyenv/versions/3.8.10/bin/python3 /home/tom/.vim/bundle/YouCompleteMe/third_party/ycmd/build.py --clangd-completer --verbose
@@ -96,6 +96,10 @@ GoToImprecise
 GoToInclude
 See the docs for information on what they do.
 Press ENTER or type command to continue
+更正下如果不支持搜索命令，可以安装如下包:
+./install.py --clang-completer
+
+
 
 6. 可以使用YcmDebugInfo命令
 
