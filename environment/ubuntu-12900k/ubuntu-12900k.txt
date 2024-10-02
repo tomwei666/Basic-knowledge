@@ -59,3 +59,12 @@ make install
 6. 切换gcc版本
 
 sudo update-alternatives --config
+
+7. 这可能是glibc和python的原因.
+[sudo] tom 的密码：
+Traceback (most recent call last):
+  File "/usr/bin/add-apt-repository", line 12, in <module>
+    from softwareproperties.SoftwareProperties import SoftwareProperties, shortcut_handler
+  File "/usr/lib/python3/dist-packages/softwareproperties/SoftwareProperties.py", line 28, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'

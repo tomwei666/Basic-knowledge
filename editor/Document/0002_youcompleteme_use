@@ -1,2 +1,25 @@
-普通用法:
- 如果提供的选项过于宽泛，请继续输入字符；YCM将根据您的输入持续优化提供的选项。
+1. 普通用法:
+   如果提供的选项过于宽泛，请继续输入字符；YCM将根据您的输入持续优化提供的选项。
+
+2. 在linux内核产生compile_command.json 
+2.1 把clang-12作为全局变量
+export PATH="${PATH}:/work1/PTG-4.6/buildsystem/android12/prebuilts/clang/host/linux-x86/clang-r416183b/bin"
+
+2.2 
+make CC=clang-12 ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- defconfig O=../main_out -j24
+bear make CC=clang-12 ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-  Image O=../main_out -j24
+在源码文件添加.clangd文件:
+CompileFlags:
+  Remove: [-fconserve-stack, -fno-allow-store-data-races, -mfunction-return=thunk-extern, -mindirect-branch-cs-prefix, -mindirect-branch-register, -mindirect-branch=thunk-extern, -mskip-rax-setup, -mpreferred-stack-boundary=3, -mno-fp-ret-in-387]
+
+3. 在android kernel产生compile_command.json
+PATH=/work1/PTG-4.6/buildsystem/android12/prebuilts/misc/linux-x86/lz4:/work1/PTG-4.6/buildsystem/android12/prebuilts/clang/host/linux-x86/clang-r416183b/bin:/usr/bin:$PATH
+make CC=clang ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- defconfig O=../main_out -j24
+bear make CC=clang ARCH=arm64 CROSS_COMPILE=/work1/github-tomwei/test-module-arm/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-  Image O=../main_out -j24
+在源码文件添加.clangd文件:
+CompileFlags:
+  Remove: [-fconserve-stack, -fno-allow-store-data-races, -mfunction-return=thunk-extern, -mindirect-branch-cs-prefix, -mindirect-branch-register, -mindirect-branch=thunk-extern, -mskip-rax-setup, -mpreferred-stack-boundary=3, -mno-fp-ret-in-387]
+
+
+
+

@@ -1,0 +1,50 @@
+TIP13 Make Corrections Instantly from Insert Mode
+
+<C-H>: delete back one char
+<C-W>: delete back one word
+<C-U>: delete back to start of line
+
+TIP14 Get Back to Normal Mode
+<ESC> / <C-[> : Switch to Normal mode
+<C-O> : Switch to Insert Normal mode
+在insert mode下，如果所在line在屏幕底,把line移动到中间，并进入insert mode，可以使用下面命令:
+<C-o>zz
+
+TIP15 Paste from a Register Without Leaving Insert Mode
+
+content:
+Practical Vim, by Drew Neil
+Read Drew Neil's Practical Vim.
+
+TIP16 Do Back-of-the-Envelope Calculations in Place
+
+content:
+6 chairs, each costing $35, totals $12
+用法：在插入模式下，输入<c-r>，然后"="，然后"3+4",最后"enter"
+
+
+TIP17  Insert Unusual Characters by Character Code
+
+Keystrokes           Effect
+<C-v>{123}           Insert character by decimal code
+<C-v>u35             Insert character by hexadecimal code
+<C-v><Tab>:          按原义插入Tab按键.
+<C-v>{char1}         插入以二合字母{char1}{char2}表示的字符.例如:⅔.
+
+
+TIP18 Insert Unusual Characters by Digraph
+
+
+TIP19 Overwrite Existing Text with Replace Mode
+
+Keystrokes   Buffer Contents
+{start}      Typing in Insert mode extends the line. But in Replace mode the line length doesn't change.
+f.           Typing in Insert mode extends the line. But in Replace mode the line length doesn't change.
+R, b[ESC]    Typing in Insert mode extends the line, but in Replace mode the line length doesn't change.
+
+{start}      Typing in Insert mode extends the line. But in Replace mode the line length doesn't change.
+
+Overwrite Tab Characters with Virtual Replace Mode
+	bbbb
+说明：使用R替换模式，会把TAB当作一个空格;使用gR模式，会把TAB当作四个空格.
+

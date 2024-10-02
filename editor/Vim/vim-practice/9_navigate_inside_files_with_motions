@@ -1,0 +1,25 @@
+1. Tip47. 
+
+2. Tip48:
+
+3. Tip49.
+
+
+4. Tip50. Find by Character 
+
+KeyStrokes   Buffer Contents
+fx           Find the first occurrence of {char} and move to it. 
+fo           Find the first occurrence of {char} and move to it.
+fc           Find the first occurrence of {char} and move to it.
+;            Find the first occurrence of {char} and move to it.
+
+Command      Effect
+f{char}      Forward to the next occurrence of {char}
+F{char}      Backward to the previous occurrence of {char}
+t{char}      Forward to the character before the next occurrence of {char}            Repeat the last character-search command
+T{char}      Backward to the character after the previous occurrence of {char}
+;            Repeat the last character-search command
+,            Reverse the last character-search command
+
+; : 重复上一次搜索命令
+, : 向后搜索上一次搜索命令
