@@ -1,0 +1,32 @@
+diff --git a/Makefile b/Makefile
+index 3f156bafa6de..6cbe41c43899 100644
+--- a/Makefile
++++ b/Makefile
+@@ -181,8 +181,18 @@ $(filter-out $(this-makefile), $(MAKECMDGOALS)) __all: __sub-make
+ 	@:
+ 
+ # Invoke a second make in the output directory, passing relevant variables
++# 编译bootimages: dtbs,Image,headers_install和modules.
+ __sub-make:
++ifeq ($(firstword $(MAKECMDGOALS)), Image)
++	@echo "Running bear 1111 to generate compile_commands.json=$(firstword $(MAKECMDGOALS))"
++	$(Q)bear $(MAKE) -C $(abs_objtree) -f $(abs_srctree)/Makefile $(MAKECMDGOALS)
++else ifeq ($(firstword $(MAKECMDGOALS)), modules)
++	@echo "Running bear 222 to generate compile_commands.json=$(firstword $(MAKECMDGOALS))"
+ 	$(Q)$(MAKE) -C $(abs_objtree) -f $(abs_srctree)/Makefile $(MAKECMDGOALS)
++else
++	@echo "Running bear 333 to generate compile_commands.json=$(firstword $(MAKECMDGOALS))"
++	$(Q)$(MAKE) -C $(abs_objtree) -f $(abs_srctree)/Makefile $(MAKECMDGOALS)
++endif
+ 
+ endif # need-sub-make
+ endif # sub_make_done
+@@ -1569,7 +1579,7 @@ endif # CONFIG_MODULES
+ # Directories & files removed with 'make clean'
+ CLEAN_FILES += include/ksym vmlinux.symvers modules-only.symvers \
+ 	       modules.builtin modules.builtin.modinfo modules.nsdeps \
+-	       compile_commands.json .thinlto-cache
++	       .thinlto-cache
+ 
+ # Directories & files removed with 'make mrproper'
+ MRPROPER_FILES += include/config include/generated          \
